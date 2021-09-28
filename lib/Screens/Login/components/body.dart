@@ -6,6 +6,8 @@ import 'package:flutter_auth/components/rounded_button.dart';
 import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Body extends StatelessWidget {
   const Body({
@@ -39,7 +41,17 @@ class Body extends StatelessWidget {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                const login_endpoint =
+                    "https://bestpkace-api.herokuapp.com/users";
+
+                Future<http.Response> fetchAllUsers() async {
+                  var response = await http.get(Uri.parse(login_endpoint));
+                  print(jsonDecode(response.body));
+                }
+
+                fetchAllUsers();
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
