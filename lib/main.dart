@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/Screens/Signup/signup_screen.dart';
+import 'package:flutter_auth/Screens/Login/login_screen.dart';
+import 'package:flutter_auth/Screens/Accueil/accueil.dart';
+import 'package:flutter_auth/Screens/Profil/profil_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +20,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: WelcomeScreen(),
+      routes: {'signup':(context)=>SignUpScreen(),
+               'login':(context)=>LoginScreen() ,
+               'accueil':(context)=>AccuielScreen(), 
+               'profil':(context)=>ProfilScreen(),  },
     );
   }
 }
