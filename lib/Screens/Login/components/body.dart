@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: Form( 
+        child: Form(
           key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ class Body extends StatelessWidget {
                  psw = value;
               },
               validate: (value) {
-                if (value.isEmpty) { 
+                if (value.isEmpty) {
                     return 'Enter something';
                 }
                     return null;
@@ -66,13 +66,13 @@ class Body extends StatelessWidget {
                 var fromdata=_formKey.currentState;
                  if (fromdata.validate()) {
                    login(mail, psw);
-                  
+
                   }else{
                     print("notvalid");
                   }
               },
-                
-              
+
+
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -100,7 +100,7 @@ class Body extends StatelessWidget {
 
 Future<User> login(email, password) async {
   final response = await http.post(
-    Uri.parse("https://bestpkace-api.herokuapp.com/users//authenticate"),
+    Uri.parse("https://bestpkace-api.herokuapp.com/users/authenticate"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -115,6 +115,6 @@ if (response.statusCode == 200 ) {
   print('ok');
    // Navigator.of(context).pushNamed('accueil');
   } else {
-    throw Exception('Failed to register user.'); 
+    throw Exception('Failed to register user.');
   }
 }
