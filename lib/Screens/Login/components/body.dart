@@ -43,46 +43,11 @@ class Body extends StatelessWidget {
                   if (value.isEmpty) {
                     return 'Enter something';
                   } else if (RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(value)) {
                     return null;
                   } else {
                     return 'Enter valid email';
-<<<<<<< HEAD
-                }
-              },
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {
-                 psw = value;
-              },
-              validate: (value) {
-                if (value.isEmpty) {
-                    return 'Enter something';
-                }
-                    return null;
-              },
-            ),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {
-                var fromdata=_formKey.currentState;
-                 if (fromdata.validate()) {
-                   login(mail, psw);
-
-                  }else{
-                    print("notvalid");
-                  }
-              },
-
-
-            ),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                   Navigator.of(context).pushNamed('signup');
-                /*Navigator.push(
-=======
                   }
                 },
               ),
@@ -114,7 +79,6 @@ class Body extends StatelessWidget {
                 press: () {
                   Navigator.of(context).pushNamed('signup');
                   /*Navigator.push(
->>>>>>> 1644a5f10c282c84079b328ef0651216fb2348c0
                   context,
                   MaterialPageRoute(
                     builder: (context) {
@@ -134,7 +98,7 @@ class Body extends StatelessWidget {
 
 Future<User> login(email, password) async {
   final response = await http.post(
-    Uri.parse("https://bestpkace-api.herokuapp.com/users/authenticate"),
+    Uri.parse("https://bestpkace-api.herokuapp.com/users//authenticate"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
