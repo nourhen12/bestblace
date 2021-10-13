@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/constants.dart';
+import 'package:flutterbestplace/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PhotoProfile extends StatelessWidget {
@@ -9,13 +9,13 @@ class PhotoProfile extends StatelessWidget {
 
   const PhotoProfile({
     Key key,
-     this.imagePath,
-     this.onClicked,
+    this.imagePath,
+    this.onClicked,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   // final color = Theme.of(context).colorScheme.primary;
+    // final color = Theme.of(context).colorScheme.primary;
 
     return Center(
       child: Stack(
@@ -63,9 +63,9 @@ class PhotoProfile extends StatelessWidget {
       );
 
   Widget buildCircle({
-     Widget child,
-     double all,
-     Color color,
+    Widget child,
+    double all,
+    Color color,
   }) =>
       ClipOval(
         child: Container(

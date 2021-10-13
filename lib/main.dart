@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
-import 'package:flutter_auth/constants.dart';
-import 'package:flutter_auth/Screens/Signup/signup_screen.dart';
-import 'package:flutter_auth/Screens/Login/login_screen.dart';
-import 'package:flutter_auth/Screens/Interface_User/Accueil/accueil.dart';
-import 'package:flutter_auth/Screens/Interface_User/Profil/profil_screen.dart';
+import 'package:flutterbestplace/Screens/Welcome/welcome_screen.dart';
+import 'package:flutterbestplace/constants.dart';
+import 'package:flutterbestplace/Screens/Signup/signup_screen.dart';
+import 'package:flutterbestplace/Screens/Login/login_screen.dart';
+import 'package:flutterbestplace/Screens/Interface_User/Accueil/accueil.dart';
+import 'package:flutterbestplace/Screens/Interface_User/Profil/profil_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,10 +20,12 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: WelcomeScreen(),
-      routes: {'signup':(context)=>SignUpScreen(),
-               'login':(context)=>LoginScreen() ,
-               'accueil':(context)=>AccuielScreen(), 
-               'profil':(context)=>ProfilScreen(),  },
+      routes: {
+        'signup': (context) => SignUpScreen(),
+        'login': (context) => LoginScreen(),
+        'accueil': (context) => AccuielScreen(),
+        'profil': (context) => ProfilScreen(),
+      },
     );
   }
 }

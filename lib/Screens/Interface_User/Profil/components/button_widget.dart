@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/constants.dart';
+import 'package:flutterbestplace/constants.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
@@ -7,8 +7,8 @@ class ButtonWidget extends StatelessWidget {
 
   const ButtonWidget({
     Key key,
-     this.text,
-     this.onClicked,
+    this.text,
+    this.onClicked,
   }) : super(key: key);
 
   @override
