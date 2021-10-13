@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/constants.dart';
+import 'package:flutterbestplace/constants.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -40,7 +40,7 @@ class RoundedButton extends StatelessWidget {
           primary: color,
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
+              color: textColor, fontSize: 14, fontWeight: FontWeight.w100)),
     );
   }
 }
