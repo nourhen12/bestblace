@@ -3,8 +3,8 @@ import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/Screens/Signup/signup_screen.dart';
 import 'package:flutter_auth/Screens/Login/login_screen.dart';
-import 'package:flutter_auth/Screens/Accueil/accueil.dart';
-import 'package:flutter_auth/Screens/Profil/profil_screen.dart';
+import 'package:flutter_auth/Screens/Interface_User/Accueil/accueil.dart';
+import 'package:flutter_auth/Screens/Interface_User/Profil/profil_screen.dart';
 
 void main() => runApp(MyApp());
 

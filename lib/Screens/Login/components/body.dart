@@ -7,7 +7,7 @@ import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_auth/Screens/user.dart';
+import 'package:flutter_auth/models/user.dart';
 import 'dart:convert';
 
 class Body extends StatelessWidget {
@@ -66,7 +66,7 @@ class Body extends StatelessWidget {
                 var fromdata=_formKey.currentState;
                  if (fromdata.validate()) {
                    login(mail, psw);
-                  
+                   Navigator.of(context).pushNamed('profil');
                   }else{
                     print("notvalid");
                   }
@@ -109,11 +109,11 @@ Future<User> login(email, password) async {
       'password': password,
     }),
   );
-  print(jsonDecode(response.body));
+  //print(jsonDecode(response.body));
 
 if (response.statusCode == 200 ) {
   print('ok');
-   // Navigator.of(context).pushNamed('accueil');
+    return User.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to register user.'); 
   }

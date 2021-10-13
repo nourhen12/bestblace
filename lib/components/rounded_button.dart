@@ -9,7 +9,7 @@ class RoundedButton extends StatelessWidget {
     Key key,
     this.text,
     this.press,
-    this.color = kPrimaryColor,
+    this.color = kPrimaryColor,   
     this.textColor = Colors.white,
   }) : super(key: key);
 
@@ -40,7 +40,7 @@ class RoundedButton extends StatelessWidget {
           primary: color,
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
+              color: textColor, fontSize: 14, fontWeight: FontWeight.w100)),
     );
   }
 }

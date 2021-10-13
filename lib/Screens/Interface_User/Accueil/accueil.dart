@@ -3,7 +3,7 @@ import 'package:flutter_auth/components/rounded_button.dart';
 import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_auth/Screens/user.dart';
+import 'package:flutter_auth/models/user.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
