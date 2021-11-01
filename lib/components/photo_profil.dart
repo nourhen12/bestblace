@@ -5,11 +5,13 @@ import 'package:image_picker/image_picker.dart';
 
 class PhotoProfile extends StatelessWidget {
   final String imagePath;
+  final bool isEdit;
   final VoidCallback onClicked;
 
   const PhotoProfile({
     Key key,
     this.imagePath,
+    this.isEdit = false,
     this.onClicked,
   }) : super(key: key);
 
@@ -55,7 +57,7 @@ class PhotoProfile extends StatelessWidget {
           color: color,
           all: 8,
           child: Icon(
-            Icons.edit,
+            isEdit ? Icons.add_a_photo : Icons.edit,
             color: Colors.white,
             size: 20,
           ),

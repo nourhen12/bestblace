@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbestplace/Screens/Login/components/background.dart';
-import 'package:flutterbestplace/Screens/Signup/signup_screen.dart';
 import 'package:flutterbestplace/components/already_have_an_account_acheck.dart';
 import 'package:flutterbestplace/components/rounded_button.dart';
 import 'package:flutterbestplace/components/rounded_input_field.dart';
@@ -9,11 +8,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutterbestplace/models/user.dart';
 import 'dart:convert';
+import 'package:flutterbestplace/Controllers/user_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   var mail;
   var psw;
+
+  User user = User();
   final _formKey = GlobalKey<FormState>();
+  UserController _userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -67,8 +72,9 @@ class Body extends StatelessWidget {
                 press: () {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
-                    login(mail, psw);
-                    Navigator.of(context).pushNamed('profil');
+                    _userController.login(mail, psw);
+
+                    //Navigator.of(context).pushNamed('profil');
                   } else {
                     print("notvalid");
                   }
@@ -77,15 +83,8 @@ class Body extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccountCheck(
                 press: () {
-                  Navigator.of(context).pushNamed('signup');
-                  /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    },
-                  ),
-                );*/
+                  // Navigator.of(context).pushNamed('signup');
+                  Get.toNamed('/signup');
                 },
               ),
             ],
@@ -93,26 +92,5 @@ class Body extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-Future<User> login(email, password) async {
-  final response = await http.post(
-    Uri.parse("https://bestpkace-api.herokuapp.com/users//authenticate"),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'email': email,
-      'password': password,
-    }),
-  );
-  //print(jsonDecode(response.body));
-
-  if (response.statusCode == 200) {
-    print('ok');
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to register user.');
   }
 }
