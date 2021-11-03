@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbestplace/Screens/Login/login_screen.dart';
-import 'package:flutterbestplace/Screens/Signup/signup_screen.dart';
 import 'package:flutterbestplace/Screens/Welcome/components/background.dart';
 import 'package:flutterbestplace/components/rounded_button.dart';
 import 'package:flutterbestplace/constants.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -29,7 +28,8 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "LOGIN",
               press: () {
-                Navigator.of(context).pushNamed('login');
+                //Navigator.of(context).pushNamed('login');
+                Get.toNamed('/login');
               },
             ),
             RoundedButton(
@@ -37,7 +37,8 @@ class Body extends StatelessWidget {
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {
-                Navigator.of(context).pushNamed('signup');
+                //Navigator.of(context).pushNamed('signup');
+                Get.toNamed('/signup');
               },
             ),
           ],

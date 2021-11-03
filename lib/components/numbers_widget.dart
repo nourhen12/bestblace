@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbestplace/Controllers/user_controller.dart';
+import 'package:get/get.dart';
 
 class NumbersWidget extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          buildButton(context, '12', 'Posts'),
-          buildDivider(),
-          buildButton(context, '35', 'Following'),
-          buildDivider(),
-          buildButton(context, '50', 'Followers'),
-        ],
-      );
+  Widget build(BuildContext context) => GetBuilder<UserController>(
+      init: UserController(),
+      builder: (controller) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildButton(context, '${controller.posts}', 'Posts'),
+              buildDivider(),
+              buildButton(context, '${controller.following}', 'Following'),
+              buildDivider(),
+              buildButton(context, '${controller.followers}', 'Followers'),
+            ],
+          ));
   Widget buildDivider() => Container(
         height: 24,
         child: VerticalDivider(),

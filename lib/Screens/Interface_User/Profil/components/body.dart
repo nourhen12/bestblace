@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbestplace/Screens/Interface_User/Profil/components/photo_profil.dart';
-import 'package:flutterbestplace/Screens/Interface_User/Profil/components/button_widget.dart';
-import 'package:flutterbestplace/Screens/Interface_User/Profil/components/numbers_widget.dart';
+import 'package:flutterbestplace/components/button_widget.dart';
+import 'package:flutterbestplace/components/photo_profil.dart';
+import 'package:flutterbestplace/components/numbers_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutterbestplace/models/user.dart';
+import 'package:get/get.dart';
+import 'package:flutterbestplace/Controllers/user_controller.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -13,21 +15,19 @@ class Body extends StatefulWidget {
 class _ProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    final user = User(
-      fullname: "nourhen lh",
-      email: 'nono@gmail.com',
-      avatar: "assets/images/profil_defaut.jpg",
-    );
-
+    UserController _controller = Get.put(UserController());
+    //User user = User();
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath: user.avatar,
-          onClicked: () async {},
+          imagePath: "assets/images/profil_defaut.jpg",
+          onClicked: () async {
+            Get.toNamed('/editprofil');
+          },
         ),
         const SizedBox(height: 24),
-        buildName(user),
+        buildName(_controller.userController),
         const SizedBox(height: 24),
         // Center(child:buildRating()),
         //const SizedBox(height: 24),

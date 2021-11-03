@@ -5,6 +5,8 @@ import 'package:flutterbestplace/Screens/Signup/signup_screen.dart';
 import 'package:flutterbestplace/Screens/Login/login_screen.dart';
 import 'package:flutterbestplace/Screens/Interface_User/Accueil/accueil.dart';
 import 'package:flutterbestplace/Screens/Interface_User/Profil/profil_screen.dart';
+import 'package:flutterbestplace/Screens/Interface_User/EditProfil/edit_profil.dart';
+import 'package:get/get.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Auth',
       theme: ThemeData(
@@ -20,12 +22,19 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: WelcomeScreen(),
-      routes: {
+      getPages: [
+        GetPage(name: '/signup', page: () => SignUpScreen()),
+        GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/accueil', page: () => AccuielScreen()),
+        GetPage(name: '/profil', page: () => ProfilScreen()),
+        GetPage(name: '/editprofil', page: () => EditProfil()),
+      ],
+      /* routes: {
         'signup': (context) => SignUpScreen(),
         'login': (context) => LoginScreen(),
         'accueil': (context) => AccuielScreen(),
         'profil': (context) => ProfilScreen(),
-      },
+      },*/
     );
   }
 }
