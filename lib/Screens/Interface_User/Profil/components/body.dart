@@ -16,7 +16,7 @@ class _ProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     UserController _controller = Get.put(UserController());
-    //User user = User();
+    User user = _controller.userController;
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
@@ -27,7 +27,7 @@ class _ProfilePageState extends State<Body> {
           },
         ),
         const SizedBox(height: 24),
-        buildName(_controller.userController),
+        buildName(user),
         const SizedBox(height: 24),
         // Center(child:buildRating()),
         //const SizedBox(height: 24),

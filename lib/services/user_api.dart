@@ -1,17 +1,14 @@
-import 'package:get/get.dart';
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:flutterbestplace/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
-class UserController extends GetxController {
-  var userController = User();
-  var token;
+class UserAPI {
+  final String url = "https://bestpkace-api.herokuapp.com/users";
 
   //register :
-  Future<User> signup(name, email, password, role) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
+  Future<User> signup(name, email, password) async {
     final response = await http.post(
       Uri.parse("$url/register"),
       headers: <String, String>{
@@ -24,11 +21,9 @@ class UserController extends GetxController {
       }),
     );
     Map<String, dynamic> body = jsonDecode(response.body);
-    print(body);
-
     if (body['status'] == 'success') {
       Get.toNamed('/login');
-      print(User.fromJson(body['payload']));
+      return User.fromJson(body['payload']['user']);
     } else {
       throw Exception('Failed to register user.');
     }
@@ -36,7 +31,6 @@ class UserController extends GetxController {
 
   //connexion
   Future<User> login(email, password) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await http.post(
       Uri.parse("$url/authenticate"),
@@ -52,17 +46,16 @@ class UserController extends GetxController {
     print(body);
 
     if (body['status'] == 'success') {
+      Get.toNamed('/profil');
       var token = body['payload']['token'];
       await prefs.setString('token', token);
-      userController = User.fromJson(body['payload']['user']);
-      Get.toNamed('/profil');
+      return User.fromJson(body['payload']);
     } else {
       throw Exception('Failed to connected user.');
     }
   }
 
   Future<User> UserById(String id) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
     final response = await http.get(Uri.parse('$url/$id'));
     Map<String, dynamic> body = jsonDecode(response.body);
     User user = body['payload']['user'];
@@ -76,7 +69,6 @@ class UserController extends GetxController {
 
   Future<User> updateUser(String id, String name, String email) async {
     Map data = {'fullname': name, 'email': email};
-    final String url = "https://bestpkace-api.herokuapp.com/users";
     final response = await http.put(
       Uri.parse("$url/update/$id"),
       headers: <String, String>{
@@ -88,15 +80,13 @@ class UserController extends GetxController {
     print(body);
 
     if (body['status'] == 'success') {
-      userController = User.fromJson(body['payload']['user']);
-      print(userController);
+      return User.fromJson(body['payload']);
     } else {
       throw Exception('Failed to register user.');
     }
   }
 
   Future<void> deleteUser(String id) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
     final response = await http.delete(Uri.parse('$url/$id'));
 
     if (response.statusCode == 200) {

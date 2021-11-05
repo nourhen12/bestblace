@@ -6,17 +6,16 @@ import 'package:flutterbestplace/components/already_have_an_account_acheck.dart'
 import 'package:flutterbestplace/components/rounded_button.dart';
 import 'package:flutterbestplace/components/rounded_input_field.dart';
 import 'package:flutterbestplace/components/rounded_password_field.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutterbestplace/components/Dropdown_widget.dart';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
-//import 'package:http/http.dart' as http;
-//import 'dart:convert';
-//import 'package:flutterbestplace/models/user.dart';
 import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   var name;
   var mail;
+  var ville;
   var psw;
+  var role;
 
   final _formKey = GlobalKey<FormState>();
   UserController _controller = Get.put(UserController());
@@ -28,25 +27,22 @@ class Body extends StatelessWidget {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 "SIGNUP",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: size.height * 0.03),
-              SvgPicture.asset(
-                "assets/icons/signup.svg",
-                height: size.height * 0.35,
-              ),
               RoundedInputField(
                 hintText: "Your Name",
+                icon: Icons.person,
                 onChanged: (value) {
                   name = value;
                 },
                 validate: (value) {
                   if (value.isEmpty) {
-                    return 'Enter something';
+                    return 'Enter your Name';
                   } else {
                     return null;
                   }
@@ -54,12 +50,13 @@ class Body extends StatelessWidget {
               ),
               RoundedInputField(
                 hintText: "Your Email",
+                icon: Icons.email,
                 onChanged: (value) {
                   mail = value;
                 },
                 validate: (value) {
                   if (value.isEmpty) {
-                    return 'Enter something';
+                    return 'Enter your Email';
                   } else if (RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(value)) {
@@ -69,17 +66,66 @@ class Body extends StatelessWidget {
                   }
                 },
               ),
+              /* RoundedInputField(
+                hintText: "Your Phone",
+                icon: Icons.phone,
+                onChanged: (value) {
+                  phone = value;
+                },
+                validate: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter something';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              RoundedInputField(
+                hintText: "Your Ville",
+                icon:Icons.location_city,
+                onChanged: (value) {
+                  ville = value;
+                },
+                validate: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter something';
+                  } else {
+                    return null;
+                  }
+                },
+              ),*/
+
               RoundedPasswordField(
                 onChanged: (value) {
                   psw = value;
                 },
                 validate: (value) {
                   if (value.isEmpty) {
-                    return 'Enter something';
+                    return 'Enter Password';
                   } else if (!RegExp(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                       .hasMatch(value)) {
-                    return 'Enter valid password';
+                    return 'Enter valid password (minimum 8 characters with combination of letters in upper, lower,special and chiffres)';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              DropdownWidget(
+                HintText: Text("Your Role"),
+                Items: <String>['User', 'Place'],
+                onChanged: (value) {
+                  if (value == 'User') {
+                    role = 'GUEST';
+                  } else if (value == 'Place') {
+                    role = value;
+                  }
+                  print(role);
+                },
+                valueSelect: role,
+                validate: (value) {
+                  if (value == null) {
+                    return 'Choose your Role';
                   } else {
                     return null;
                   }
@@ -90,9 +136,8 @@ class Body extends StatelessWidget {
                 press: () {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
-                    /*_userController.signup(mail, psw);
-                    _userController.getuser();*/
-                    _controller.signup(name, mail, psw);
+                    print("role $role");
+                    _controller.signup(name, mail, psw, role);
                   } else {
                     print("notvalid");
                   }

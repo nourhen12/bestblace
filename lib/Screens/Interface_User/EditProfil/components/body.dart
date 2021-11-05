@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterbestplace/components/photo_profil.dart';
 import 'package:flutterbestplace/components/textfield_edit.dart';
 import 'package:flutterbestplace/models/user.dart';
+import 'package:get/get.dart';
+import 'package:flutterbestplace/Controllers/user_controller.dart';
+import 'package:flutterbestplace/components/rounded_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -9,10 +12,12 @@ class Body extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<Body> {
-  User user = User();
-
+  UserController _controller = Get.put(UserController());
+  var name;
+  var mail;
   @override
   Widget build(BuildContext context) {
+    User user = _controller.userController;
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 32),
       physics: BouncingScrollPhysics(),
@@ -26,13 +31,29 @@ class _EditProfilePageState extends State<Body> {
         TextFieldedit(
           label: 'Full Name',
           text: user.fullname,
-          onChanged: (name) {},
+          onChanged: (value) {
+            name = value;
+          },
         ),
         const SizedBox(height: 24),
         TextFieldedit(
           label: 'Email',
           text: user.email,
-          onChanged: (email) {},
+          onChanged: (value) {
+            mail = value;
+          },
+        ),
+        TextFieldedit(
+          label: 'Password',
+          text: user.password,
+          onChanged: (value) {},
+        ),
+        RoundedButton(
+          text: "Save",
+          press: () {
+            var id = user.id;
+            _controller.updateUser(id, name, mail);
+          },
         ),
       ],
     );
