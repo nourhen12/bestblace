@@ -34,7 +34,9 @@ class _ProfilePageState extends State<Body> {
         Center(
             child: ButtonWidget(
           text: 'Upgrade To Profile',
-          onClicked: () {},
+          onClicked: () {
+            Get.toNamed('/image');
+          },
         )),
         const SizedBox(height: 24),
         NumbersWidget(),

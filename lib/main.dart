@@ -8,6 +8,7 @@ import 'package:flutterbestplace/Screens/Interface_User/Profil/profil_screen.dar
 import 'package:flutterbestplace/Screens/Interface_User/EditProfil/edit_profil.dart';
 import 'package:get/get.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
