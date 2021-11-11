@@ -8,7 +8,7 @@ class UserAPI {
   final String url = "https://bestpkace-api.herokuapp.com/users";
 
   //register :
-  Future<User> signup(name, email, password) async {
+  Future<User> register(name, email, password) async {
     final response = await http.post(
       Uri.parse("$url/register"),
       headers: <String, String>{
@@ -20,13 +20,7 @@ class UserAPI {
         'password': password,
       }),
     );
-    Map<String, dynamic> body = jsonDecode(response.body);
-    if (body['status'] == 'success') {
-      Get.toNamed('/login');
-      return User.fromJson(body['payload']['user']);
-    } else {
-      throw Exception('Failed to register user.');
-    }
+    return jsonDecode(response.body);
   }
 
   //connexion

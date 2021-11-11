@@ -5,11 +5,8 @@ import 'package:flutterbestplace/components/rounded_button.dart';
 import 'package:flutterbestplace/components/rounded_input_field.dart';
 import 'package:flutterbestplace/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutterbestplace/models/user.dart';
-import 'dart:convert';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
@@ -48,7 +45,7 @@ class Body extends StatelessWidget {
                   if (value.isEmpty) {
                     return 'Enter something';
                   } else if (RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(value)) {
                     return null;
                   } else {
@@ -73,7 +70,6 @@ class Body extends StatelessWidget {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
                     _userController.login(mail, psw);
-
                     //Navigator.of(context).pushNamed('profil');
                   } else {
                     print("notvalid");

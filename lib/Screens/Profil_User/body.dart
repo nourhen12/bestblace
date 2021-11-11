@@ -21,7 +21,7 @@ class _ProfilePageState extends State<Body> {
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath: "assets/images/profil_defaut.jpg",
+          imagePath: user.avatar,
           onClicked: () async {
             Get.toNamed('/editprofil');
           },

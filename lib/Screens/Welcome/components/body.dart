@@ -30,6 +30,7 @@ class Body extends StatelessWidget {
               press: () {
                 //Navigator.of(context).pushNamed('login');
                 Get.toNamed('/login');
+                //Get.toNamed('/profil');
               },
             ),
             RoundedButton(
@@ -39,6 +40,7 @@ class Body extends StatelessWidget {
               press: () {
                 //Navigator.of(context).pushNamed('signup');
                 Get.toNamed('/signup');
+                //Get.toNamed('/profilPlace');
               },
             ),
           ],

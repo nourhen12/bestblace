@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 class Body extends StatelessWidget {
   var name;
   var mail;
-  var ville;
   var psw;
   var role;
 
@@ -66,35 +65,6 @@ class Body extends StatelessWidget {
                   }
                 },
               ),
-              /* RoundedInputField(
-                hintText: "Your Phone",
-                icon: Icons.phone,
-                onChanged: (value) {
-                  phone = value;
-                },
-                validate: (value) {
-                  if (value.isEmpty) {
-                    return 'Enter something';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              RoundedInputField(
-                hintText: "Your Ville",
-                icon:Icons.location_city,
-                onChanged: (value) {
-                  ville = value;
-                },
-                validate: (value) {
-                  if (value.isEmpty) {
-                    return 'Enter something';
-                  } else {
-                    return null;
-                  }
-                },
-              ),*/
-
               RoundedPasswordField(
                 onChanged: (value) {
                   psw = value;
