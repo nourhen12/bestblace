@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutterbestplace/components/photo_profil.dart';
 import 'package:flutterbestplace/components/rounded_input_field.dart';
@@ -32,16 +34,7 @@ class _EditProfilePageState extends State<Body> {
               "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
           isEdit: true,
           onClicked: () async {
-            /*final image =
-                await ImagePicker().getImage(source: ImageSource.gallery);*/
-            final ImagePicker _picker = ImagePicker();
-            final XFile imagepicker =
-                await _picker.pickImage(source: ImageSource.gallery);
-            if (imagepicker != null) {
-              print('image : ${imagepicker.path}');
-              final imageFile = XFile(imagepicker.path);
-              print('imagefile $imageFile');
-            }
+            _controller.uploadAvatar(user.id,'image', File('testimage.png'));
           },
         ),
         const SizedBox(height: 24),

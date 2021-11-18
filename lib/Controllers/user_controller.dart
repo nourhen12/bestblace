@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
@@ -124,20 +127,38 @@ class UserController extends GetxController {
     }
   }
 
-  Future<dynamic> getAvatar() async {
-    var response =
-        await "https://bestpkace-api.herokuapp.com/uploadsavatar/default.png";
-    //print(response.data);
-
-    /* final String url =
-        await "https://bestpkace-api.herokuapp.com/uploadsavatar";
-    var response = await _dio.get.("$url/${userController.avatar}");
+  /*Future<dynamic> uploadAvatar(String id) async {
+     var path  = "https://bestpkace-api.herokuapp.com/uploadsavatar/del-place.jpg";
+    final String url = "https://bestpkace-api.herokuapp.com/";
+    final response = await http.post(
+      Uri.parse("$url/uploadsavatar/avatar/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(path),
+    );
     print(jsonDecode(response.body));
-    //UrlAvatar = NetworkImage(url);
-    if (response.statusCode == 200) {
-      return ;
-    } else {
-      throw Exception('Failed to load a user');
-    }*/
+
+  }*/
+  Future<dynamic> uploadAvatar(String id,String title, File file) async{
+
+    var request = http.MultipartRequest("POST",Uri.parse("https://bestpkace-api.herokuapp.com/uploadsavatar/avatar/$id"));
+    print(id);
+
+    request.fields['title'] = "dummyImage";
+    request.headers['Authorization'] = "Client-ID " +"f7........";
+
+    var picture = http.MultipartFile.fromBytes('image', (await rootBundle.load('testimage.png')).buffer.asUint8List(),
+        filename: 'testimage.png');
+
+    request.files.add(picture);
+
+    var response = await request.send();
+    var responseData = await response.stream.toBytes();
+
+    var result = String.fromCharCodes(responseData);
+
+    print(result);
   }
+
 }
