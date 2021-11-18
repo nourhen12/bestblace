@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbestplace/components/appbar_widget.dart';
-import 'package:flutterbestplace/Screens/Interface_User/EditProfil/components/body.dart';
+import 'package:flutterbestplace/Screens/Profil_Place/body.dart';
 
-class EditProfil extends StatelessWidget {
+class ProfilPlace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

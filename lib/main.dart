@@ -3,9 +3,10 @@ import 'package:flutterbestplace/Screens/Welcome/welcome_screen.dart';
 import 'package:flutterbestplace/constants.dart';
 import 'package:flutterbestplace/Screens/Signup/signup_screen.dart';
 import 'package:flutterbestplace/Screens/Login/login_screen.dart';
-import 'package:flutterbestplace/Screens/Interface_User/Accueil/accueil.dart';
-import 'package:flutterbestplace/Screens/Interface_User/Profil/profil_screen.dart';
-import 'package:flutterbestplace/Screens/Interface_User/EditProfil/edit_profil.dart';
+import 'package:flutterbestplace/Screens/Accueil/accueil.dart';
+import 'package:flutterbestplace/Screens/Profil_User/profil_screen.dart';
+import 'package:flutterbestplace/Screens/EditProfil/edit_profil.dart';
+import 'package:flutterbestplace/Screens/Profil_Place/profil_place.dart';
 import 'package:get/get.dart';
 
 
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/login', page: () => LoginScreen()),
         GetPage(name: '/accueil', page: () => AccuielScreen()),
-        GetPage(name: '/profil', page: () => ProfilScreen()),
+        GetPage(name: '/profil', page: () => ProfilUser()),
         GetPage(name: '/editprofil', page: () => EditProfil()),
+        GetPage(name: '/profilPlace', page: () => ProfilPlace()),
       ],
       /* routes: {
         'signup': (context) => SignUpScreen(),
