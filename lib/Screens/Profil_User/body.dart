@@ -16,18 +16,21 @@ class _ProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     UserController _controller = Get.put(UserController());
-    //User user = User();
+    User user = _controller.userController;
+    String avaterapi = user.avatar;
+
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath: "assets/images/profil_defaut.jpg",
+          imagePath:
+              "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
           onClicked: () async {
             Get.toNamed('/editprofil');
           },
         ),
         const SizedBox(height: 24),
-        buildName(_controller.userController),
+        buildName(user),
         const SizedBox(height: 24),
         // Center(child:buildRating()),
         //const SizedBox(height: 24),

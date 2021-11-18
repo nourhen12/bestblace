@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbestplace/Controllers/user_controller.dart';
+import 'package:flutterbestplace/Controllers/numbers_controller.dart';
 import 'package:get/get.dart';
 
 class NumbersWidget extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => GetBuilder<UserController>(
-      init: UserController(),
+  Widget build(BuildContext context) => GetBuilder<NumbersController>(
+      init: NumbersController(),
       builder: (controller) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
