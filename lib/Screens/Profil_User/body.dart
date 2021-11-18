@@ -17,11 +17,14 @@ class _ProfilePageState extends State<Body> {
   Widget build(BuildContext context) {
     UserController _controller = Get.put(UserController());
     User user = _controller.userController;
+    String avaterapi = user.avatar;
+
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath: user.avatar,
+          imagePath:
+              "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
           onClicked: () async {
             Get.toNamed('/editprofil');
           },

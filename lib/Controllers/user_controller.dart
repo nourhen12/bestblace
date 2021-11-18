@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 import 'package:flutterbestplace/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class UserController extends GetxController {
+  var statusController;
+  var messageController;
   var userController = User();
-  var idUser = "618c3fb720c7cb00230d8d30";
   var token;
 
   //register :
@@ -22,6 +25,7 @@ class UserController extends GetxController {
         'fullname': name,
         'email': email,
         'password': password,
+        'role': role,
       }),
     );
     Map<String, dynamic> body = jsonDecode(response.body);
@@ -53,11 +57,15 @@ class UserController extends GetxController {
     print(body);
 
     if (body['status'] == 'success') {
-      var token = body['payload']['token'];
+      token = body['payload']['token'];
       final user = body['payload']['user'];
-      await prefs.setString('token', token);
       userController = User.fromJson(user);
-      Get.toNamed('/profil');
+      //Get.toNamed('/profil');
+      if (user['role'] == 'USER') {
+        Get.toNamed('/profil');
+      } else if (user['role'] == 'PLACE') {
+        Get.toNamed('/profilPlace');
+      }
     } else {
       throw Exception('Failed to connected user.');
     }
@@ -102,6 +110,7 @@ class UserController extends GetxController {
     } else {
       throw Exception('Failed to register user.');
     }
+    update();
   }
 
   Future<void> deleteUser(String id) async {
@@ -113,5 +122,22 @@ class UserController extends GetxController {
     } else {
       throw "Failed to delete a user.";
     }
+  }
+
+  Future<dynamic> getAvatar() async {
+    var response =
+        await "https://bestpkace-api.herokuapp.com/uploadsavatar/default.png";
+    //print(response.data);
+
+    /* final String url =
+        await "https://bestpkace-api.herokuapp.com/uploadsavatar";
+    var response = await _dio.get.("$url/${userController.avatar}");
+    print(jsonDecode(response.body));
+    //UrlAvatar = NetworkImage(url);
+    if (response.statusCode == 200) {
+      return ;
+    } else {
+      throw Exception('Failed to load a user');
+    }*/
   }
 }

@@ -22,13 +22,14 @@ class _EditProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     User user = _controller.userController;
-    var userid = _controller.idUser;
+    String avaterapi = user.avatar;
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 32),
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath: "assets/images/profil_defaut.jpg",
+          imagePath:
+              "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
           isEdit: true,
           onClicked: () async {
             /*final image =
@@ -46,6 +47,7 @@ class _EditProfilePageState extends State<Body> {
         const SizedBox(height: 24),
         RoundedInputField(
           hintText: user.fullname,
+          icon: Icons.person,
           onChanged: (value) {
             NewName = value;
           },
@@ -53,6 +55,7 @@ class _EditProfilePageState extends State<Body> {
         const SizedBox(height: 24),
         RoundedInputField(
           hintText: user.email,
+          icon: Icons.email,
           onChanged: (value) {
             NewEmail = value;
           },
@@ -75,7 +78,7 @@ class _EditProfilePageState extends State<Body> {
           text: "Save",
           press: () {
             print(
-                'id : $userid , name : $NewName , email : $NewEmail , phone : $NewPhone , ville : $NewVille');
+                'id : $user.id  , name : $NewName , email : $NewEmail , phone : $NewPhone , ville : $NewVille');
             _controller.updateUser(
                 user.id, NewName, NewEmail, NewPhone, NewVille);
           },

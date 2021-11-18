@@ -25,7 +25,7 @@ class UserAPI {
 
   //connexion
   Future<User> login(email, password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //  SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await http.post(
       Uri.parse("$url/authenticate"),
       headers: <String, String>{
@@ -37,16 +37,21 @@ class UserAPI {
       }),
     );
     Map<String, dynamic> body = jsonDecode(response.body);
-    print(body);
-
+    final user = body['payload']['user'];
+    final message = body['message'];
     if (body['status'] == 'success') {
+      return User.fromJson(user);
+    } else {
+      return message;
+    }
+    /* if (body['status'] == 'success') {
       Get.toNamed('/profil');
       var token = body['payload']['token'];
       await prefs.setString('token', token);
       return User.fromJson(body['payload']);
     } else {
       throw Exception('Failed to connected user.');
-    }
+    }*/
   }
 
   Future<User> UserById(String id) async {

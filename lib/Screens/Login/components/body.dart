@@ -7,12 +7,12 @@ import 'package:flutterbestplace/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterbestplace/models/user.dart';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
+import 'package:flutterbestplace/services/user_api.dart';
 import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   var mail;
   var psw;
-
   User user = User();
   final _formKey = GlobalKey<FormState>();
   UserController _userController = Get.put(UserController());
@@ -70,7 +70,6 @@ class Body extends StatelessWidget {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
                     _userController.login(mail, psw);
-                    //Navigator.of(context).pushNamed('profil');
                   } else {
                     print("notvalid");
                   }
@@ -87,6 +86,30 @@ class Body extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  showAlertDialog(String message) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("ERROR"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
   var mail;
   var psw;
   var role;
-
+ 
   final _formKey = GlobalKey<FormState>();
   UserController _controller = Get.put(UserController());
   @override
@@ -86,9 +86,9 @@ class Body extends StatelessWidget {
                 Items: <String>['User', 'Place'],
                 onChanged: (value) {
                   if (value == 'User') {
-                    role = 'GUEST';
+                    role = 'USER';
                   } else if (value == 'Place') {
-                    role = value;
+                    role = 'PLACE';
                   }
                   print(role);
                 },
@@ -106,7 +106,6 @@ class Body extends StatelessWidget {
                 press: () {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
-                    print("role $role");
                     _controller.signup(name, mail, psw, role);
                   } else {
                     print("notvalid");

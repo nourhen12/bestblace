@@ -15,7 +15,7 @@ class User {
       this.phone,
       this.ville,
       this.role,
-      this.avatar = "assets/images/profil_defaut.jpg"});
+      this.avatar});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['_id'],
