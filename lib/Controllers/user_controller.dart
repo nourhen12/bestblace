@@ -7,8 +7,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import 'package:flutterbestplace/models/user.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
 
 class UserController extends GetxController {
   var statusController;
@@ -65,9 +67,9 @@ class UserController extends GetxController {
       userController = User.fromJson(user);
       //Get.toNamed('/profil');
       if (user['role'] == 'USER') {
-        Get.toNamed('/profil');
+        Get.toNamed('/editprofil');
       } else if (user['role'] == 'PLACE') {
-        Get.toNamed('/profilPlace');
+        Get.toNamed('/editprofil');
       }
     } else {
       throw Exception('Failed to connected user.');
@@ -139,17 +141,16 @@ class UserController extends GetxController {
     );
     print(jsonDecode(response.body));
 
-  }*/
-  Future<dynamic> uploadAvatar(String id,String title, File file) async{
+  }
+  Future<dynamic> uploadAvatar(String id,String title, File file,String str) async{
 
-    var request = http.MultipartRequest("POST",Uri.parse("https://bestpkace-api.herokuapp.com/uploadsavatar/avatar/$id"));
-    print(id);
+    var request = http.MultipartRequest("POST",Uri.parse("https://bestpkace-api.herokuapp.com/uploadsavatar/$id"));
 
     request.fields['title'] = "dummyImage";
     request.headers['Authorization'] = "Client-ID " +"f7........";
 
-    var picture = http.MultipartFile.fromBytes('image', (await rootBundle.load('testimage.png')).buffer.asUint8List(),
-        filename: 'testimage.png');
+    var picture = http.MultipartFile.fromBytes('image', (await rootBundle.load(str)).buffer.asUint8List(),
+        filename: str);
 
     request.files.add(picture);
 
@@ -160,5 +161,7 @@ class UserController extends GetxController {
 
     print(result);
   }
+  */
 
 }
+
