@@ -1,3 +1,5 @@
+import 'package:flutterbestplace/models/post.dart';
+
 class User {
   String id;
   String fullname;
@@ -5,8 +7,10 @@ class User {
   String password;
   String phone;
   String ville;
+  String adresse;
   String role;
   String avatar;
+  List<dynamic> posts;
   User(
       {this.id,
       this.fullname,
@@ -14,8 +18,10 @@ class User {
       this.password,
       this.phone,
       this.ville,
+      this.adresse,
       this.role,
-      this.avatar});
+      this.avatar,
+      this.posts});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['_id'],
@@ -24,8 +30,10 @@ class User {
       password: json['password'],
       phone: json['phone'],
       ville: json['ville'],
+      adresse: json['adresse'],
       role: json[' role'],
       avatar: json['avatar'],
+      posts: json['posts'],
     );
   }
   Map<String, dynamic> toJson() => {
@@ -35,7 +43,9 @@ class User {
         'password': password,
         'phone': phone,
         'ville': ville,
+        'adresse': adresse,
         'role': role,
         'avatar': avatar,
+        'posts': posts,
       };
 }
