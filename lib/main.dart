@@ -10,6 +10,7 @@ import 'package:flutterbestplace/Screens/Profil_Place/profil_place.dart';
 import 'package:flutterbestplace/Screens/google_map/map.dart';
 import 'package:get/get.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

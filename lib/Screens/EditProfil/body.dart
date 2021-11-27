@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutterbestplace/components/photo_profil.dart';
 import 'package:flutterbestplace/components/rounded_input_field.dart';
@@ -46,6 +48,8 @@ class _EditProfilePageState extends State<Body> {
 
               //_controller.updateAvatar(user.id, image);
             }
+            _controller.uploadAvatar(user.id,'image', File('testimage.png'));
+
           },
         ),
         const SizedBox(height: 24),
