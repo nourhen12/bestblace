@@ -19,6 +19,9 @@ class _ProfilePageState extends State<Body> {
     User user = _controller.userController;
     String avaterapi = user.avatar;
 
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
@@ -43,6 +46,56 @@ class _ProfilePageState extends State<Body> {
         )),
         const SizedBox(height: 24),
         NumbersWidget(),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          height: height * 0.5,
+          width: width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'My Orders',
+                style: TextStyle(
+                  color: Color.fromRGBO(39, 105, 171, 1),
+                  fontSize: 27,
+                  fontFamily: 'Nunito',
+                ),
+              ),
+              Divider(
+                thickness: 2.5,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: height * 0.15,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: height * 0.15,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+            ]),
+          ),
+        )
       ],
     );
   }

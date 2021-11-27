@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
-import 'package:dio/dio.dart';
-
+import 'dart:io';
 import 'package:flutterbestplace/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +14,7 @@ class UserController extends GetxController {
   var messageController;
   var userController = User();
   var token;
+  var Avatar;
 
   //register :
   Future<User> signup(name, email, password, role) async {
@@ -63,6 +63,8 @@ class UserController extends GetxController {
       token = body['payload']['token'];
       final user = body['payload']['user'];
       userController = User.fromJson(user);
+      Avatar =
+          "https://bestpkace-api.herokuapp.com/uploadsavatar/${userController.avatar}";
       //Get.toNamed('/profil');
       if (user['role'] == 'USER') {
         Get.toNamed('/profil');
@@ -127,14 +129,21 @@ class UserController extends GetxController {
     }
   }
 
+
+  Future<User> updateAvatar(String id, final image) async {
+
   /*Future<dynamic> uploadAvatar(String id) async {
      var path  = "https://bestpkace-api.herokuapp.com/uploadsavatar/del-place.jpg";
+
     final String url = "https://bestpkace-api.herokuapp.com/";
     final response = await http.post(
       Uri.parse("$url/uploadsavatar/avatar/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
+      body: jsonEncode(image),
+    );
+    print(jsonDecode(response.body));
       body: jsonEncode(path),
     );
     print(jsonDecode(response.body));

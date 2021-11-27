@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
 import 'package:flutterbestplace/components/rounded_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'dart:io';
 
 class Body extends StatefulWidget {
   @override
@@ -24,17 +26,30 @@ class _EditProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     User user = _controller.userController;
-    String avaterapi = user.avatar;
+    var url = _controller.Avatar;
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 32),
       physics: BouncingScrollPhysics(),
       children: [
         PhotoProfile(
-          imagePath:
-              "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
+          imagePath: url,
           isEdit: true,
           onClicked: () async {
+            final imagepicked =
+                await ImagePicker().getImage(source: ImageSource.gallery);
+            // final ImagePicker _picker = ImagePicker();
+            // final XFile imagepicker =
+            //  await _picker.pickImage(source: ImageSource.gallery);
+            if (imagepicked != null) {
+              print('image : ${imagepicked.path}');
+              final image = File(imagepicked.path);
+              print('imagefile $image');
+              url = Image.file(image);
+
+              //_controller.updateAvatar(user.id, image);
+            }
             _controller.uploadAvatar(user.id,'image', File('testimage.png'));
+
           },
         ),
         const SizedBox(height: 24),
