@@ -5,6 +5,7 @@ import 'package:flutterbestplace/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:geocoding/geocoding.dart';
 
 class MapSample extends StatefulWidget {
   @override
@@ -13,13 +14,12 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   var _controller = Completer();
+Position cp;
+var lat;
+var long;
+CameraPosition _kGooglePlex ;
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(35.504987, 11.043340),
-    zoom: 14.4746,
-  );
-
-  Future getPostion() async {
+  Future getPer() async {
     bool services;
     LocationPermission per;
     services = await Geolocator.isLocationServiceEnabled();
@@ -33,27 +33,59 @@ class MapSampleState extends State<MapSample> {
         per = await Geolocator.requestPermission();
       }
     }
-
-    per = await Geolocator.checkPermission();
-    print(services);
-    print('///////////////////// per : $per');
+    return per;
   }
 
+  Future<Position> getLateAndLate() async {
+    cp = await Geolocator.getCurrentPosition().then((value) => value);
+    lat = cp.latitude;
+    long = cp.longitude;
+    _kGooglePlex = CameraPosition(
+      target: LatLng( lat, long),
+      zoom: 15.4746,
+    );
+    setState(() {
+
+    });
+  }
   @override
   void initState() {
-    getPostion();
+    getPer();
+    getLateAndLate();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: ElevatedButton(
+      body:Column(
+        children:[
+          _kGooglePlex == null ? CircularProgressIndicator():
+          Container( child: GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (controller) {
+              _controller.complete(controller);
+            },
+          ),
+            height: 500,
+            width: 400,
+          ),
+        ElevatedButton(
         child: Text(
           "button",
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () async{
+          cp = await getLateAndLate();
+          print("lat : ${cp.latitude} ");
+          print("long : ${cp.longitude} ");
+         // List<Placemark> placemarks = await placemarkFromCoordinates(cp.latitude, cp.longitude);
+         // print("position : ${placemarks} ");
+       // List<Location> locations = await locationFromAddress("haddad mahdia");
+         List<Placemark> placemarks = await placemarkFromCoordinates(35.4994896, 11.0583794);
+          print("position : ${placemarks} ");
+        },
         style: ElevatedButton.styleFrom(
             primary: kPrimaryColor,
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -61,6 +93,8 @@ class MapSampleState extends State<MapSample> {
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w100)),
+      ),
+    ],
       ),
     );
   }

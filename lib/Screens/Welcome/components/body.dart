@@ -39,7 +39,8 @@ class Body extends StatelessWidget {
               textColor: Colors.black,
               press: () {
                 //Navigator.of(context).pushNamed('signup');
-                Get.toNamed('/signup');
+                //Get.toNamed('/signup');
+                Get.toNamed('/map');
                 //Get.toNamed('/profilPlace');
               },
             ),

@@ -13,13 +13,12 @@
       android:label="flutter_auth"
       android:requestLegacyExternalStorage="true"
       android:icon="@mipmap/ic_launcher">
-        android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_auth"
-        android:icon="@mipmap/ic_launcher">
+
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyAp6_rBkKNIbEe0QLj5rn5IuBYV_EpoJr4"/>
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
