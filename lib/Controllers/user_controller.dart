@@ -1,26 +1,24 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
-import 'dart:io';
+import 'package:flutterbestplace/models/Data.dart';
 import 'package:flutterbestplace/models/user.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:http/http.dart' as http;
 
-
 class UserController extends GetxController {
-  var statusController;
-  var messageController;
+  final String url = "https://bestpkace-api.herokuapp.com/users";
   var userController = User();
-  var token;
-  var Avatar;
+  String idController;
+  String nameController;
+  String emailController;
+  String phoneController;
+  String villeController;
+  String adresseController;
+  String roleController;
+  String avatarController;
 
   //register :
-  Future<User> signup(name, email, password, role) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
+  Future<Data> signup(name, email, password, role) async {
     final response = await http.post(
       Uri.parse("$url/register"),
       headers: <String, String>{
@@ -33,21 +31,12 @@ class UserController extends GetxController {
         'role': role,
       }),
     );
-    Map<String, dynamic> body = jsonDecode(response.body);
-    print(body);
-
-    if (body['status'] == 'success') {
-      Get.toNamed('/login');
-      print(User.fromJson(body['payload']));
-    } else {
-      throw Exception('Failed to register user.');
-    }
+    Map<String, dynamic> res = jsonDecode(response.body);
+    return Data.fromJson(res);
   }
 
   //connexion
-  Future<User> login(email, password) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<Data> login(email, password) async {
     final response = await http.post(
       Uri.parse("$url/authenticate"),
       headers: <String, String>{
@@ -58,37 +47,26 @@ class UserController extends GetxController {
         'password': password,
       }),
     );
-    Map<String, dynamic> body = jsonDecode(response.body);
-    print(body);
+    Map<String, dynamic> res = jsonDecode(response.body);
 
-    if (body['status'] == 'success') {
-      token = body['payload']['token'];
-      final user = body['payload']['user'];
-      userController = User.fromJson(user);
-      Avatar =
-          "https://bestpkace-api.herokuapp.com/uploadsavatar/${userController.avatar}";
-      //Get.toNamed('/profil');
-      if (user['role'] == 'USER') {
-        Get.toNamed('/editprofil');
-      } else if (user['role'] == 'PLACE') {
-        Get.toNamed('/editprofil');
-      }
-    } else {
-      throw Exception('Failed to connected user.');
-    }
+    final user = res['payload']['user'];
+    userController = User.fromJson(user);
+
+    return Data.fromJson(res);
   }
 
-  Future<User> UserById(String id) async {
-    final String url = "https://bestpkace-api.herokuapp.com/users";
-    final response = await http.get(Uri.parse('$url/$id'));
-    Map<String, dynamic> body = jsonDecode(response.body);
-    User user = body['payload']['user'];
-
-    if (response.statusCode == 200) {
-      return user;
-    } else {
-      throw Exception('Failed to load a user');
-    }
+  Future<Data> addPlace(
+      String id, String phone, String ville, String adresse) async {
+    Map place = {'phone': phone, 'ville': ville, 'adresse': adresse};
+    final response = await http.put(
+      Uri.parse("$url/update/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(place),
+    );
+    Map<String, dynamic> res = jsonDecode(response.body);
+    return Data.fromJson(res);
   }
 
   Future<User> updateUser(
@@ -111,14 +89,28 @@ class UserController extends GetxController {
     print(body);
 
     if (body['status'] == 'success') {
-      userController = User.fromJson(body['payload']['user']);
+      userController = body['payload']['user'];
       print(userController);
       Get.toNamed('/profil');
     } else {
       throw Exception('Failed to register user.');
     }
-    update();
   }
+
+/*
+  Future<User> UserById(String id) async {
+    final String url = "https://bestpkace-api.herokuapp.com/users";
+    final response = await http.get(Uri.parse('$url/$id'));
+    Map<String, dynamic> body = jsonDecode(response.body);
+    User user = body['payload']['user'];
+
+    if (response.statusCode == 200) {
+      return user;
+    } else {
+      throw Exception('Failed to load a user');
+    }
+  }
+
 
   Future<void> deleteUser(String id) async {
     final String url = "https://bestpkace-api.herokuapp.com/users";
@@ -131,9 +123,7 @@ class UserController extends GetxController {
     }
   }
 
-
   Future<User> updateAvatar(String id, final image) async {
-
     /*Future<dynamic> uploadAvatar(String id) async {
      var path  = "https://bestpkace-api.herokuapp.com/uploadsavatar/del-place.jpg";
 
@@ -171,6 +161,5 @@ class UserController extends GetxController {
     print(result);
   }
   */
-  }
+  }*/
 }
-

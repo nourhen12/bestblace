@@ -26,7 +26,7 @@ class _ProfilePageState extends State<Body> {
   ];
   @override
   Widget build(BuildContext context) {
-    UserController _controller = Get.put(UserController());
+    /*  UserController _controller = Get.put(UserController());
     User user = _controller.userController;
     String avaterapi = user.avatar;
 
@@ -91,7 +91,7 @@ class _ProfilePageState extends State<Body> {
 
         //buildExpanded(context, categories),
       ],
-    );
+    );*/
   }
 
   Widget buildSlidingPanel({

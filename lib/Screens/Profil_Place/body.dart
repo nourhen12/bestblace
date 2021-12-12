@@ -15,7 +15,7 @@ class Body extends StatefulWidget {
 class _ProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    UserController _controller = Get.put(UserController());
+    /* UserController _controller = Get.put(UserController());
     User user = _controller.userController;
     String avaterapi = user.avatar;
 
@@ -95,7 +95,7 @@ class _ProfilePageState extends State<Body> {
           ),
         )
       ],
-    );
+    );*/
   }
 
   Widget buildName(User user) => Column(

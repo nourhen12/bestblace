@@ -17,7 +17,7 @@ class _ProfilePageState extends State<Body> {
   Widget build(BuildContext context) {
     UserController _controller = Get.put(UserController());
     User user = _controller.userController;
-    String avaterapi = user.avatar;
+    String avaterapi = _controller.userController.avatar;
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -33,10 +33,10 @@ class _ProfilePageState extends State<Body> {
           },
         ),
         const SizedBox(height: 24),
-        buildName(user),
+        buildName(_controller.userController),
         const SizedBox(height: 24),
-        // Center(child:buildRating()),
-        //const SizedBox(height: 24),
+        Center(child: buildRating()),
+        const SizedBox(height: 24),
         Center(
             child: ButtonWidget(
           text: 'Upgrade To Profile',

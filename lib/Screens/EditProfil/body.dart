@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<Body> {
-  UserController _controller = Get.put(UserController());
+  // UserController _controller = Get.put(UserController());
   var NewName = null;
   var NewEmail = null;
   var NewPhone = null;
@@ -25,14 +25,14 @@ class _EditProfilePageState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    User user = _controller.userController;
-    var url = _controller.Avatar;
+    // User user = _controller.userController;
+    // var url = _controller.Avatar;
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 32),
       physics: BouncingScrollPhysics(),
       children: [
-        PhotoProfile(
-          imagePath: url,
+        /* PhotoProfile(
+          imagePath:// url,
           isEdit: true,
           onClicked: () async {
             final imagepicked =
@@ -87,10 +87,10 @@ class _EditProfilePageState extends State<Body> {
           press: () {
             print(
                 'id : $user.id  , name : $NewName , email : $NewEmail , phone : $NewPhone , ville : $NewVille');
-            _controller.updateUser(
+          //  _controller.updateUser(
                 user.id, NewName, NewEmail, NewPhone, NewVille);
           },
-        ),
+        ),*/
       ],
     );
   }
