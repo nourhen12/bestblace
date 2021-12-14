@@ -109,6 +109,7 @@ class Body extends StatelessWidget {
                 press: () async {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
+                    fromdata.save();
                     Data data = await _controller.signup(name, mail, psw, role);
                     if (data.status == 'success') {
                       if (role == 'PLACE') {

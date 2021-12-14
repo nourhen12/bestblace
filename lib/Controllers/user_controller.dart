@@ -7,15 +7,8 @@ import 'package:http/http.dart' as http;
 
 class UserController extends GetxController {
   final String url = "https://bestpkace-api.herokuapp.com/users";
-  var userController = User();
+  Rx<User> userController;
   String idController;
-  String nameController;
-  String emailController;
-  String phoneController;
-  String villeController;
-  String adresseController;
-  String roleController;
-  String avatarController;
 
   //register :
   Future<Data> signup(name, email, password, role) async {
@@ -49,9 +42,6 @@ class UserController extends GetxController {
     );
     Map<String, dynamic> res = jsonDecode(response.body);
 
-    final user = res['payload']['user'];
-    userController = User.fromJson(user);
-
     return Data.fromJson(res);
   }
 
@@ -69,15 +59,15 @@ class UserController extends GetxController {
     return Data.fromJson(res);
   }
 
-  Future<User> updateUser(
-      String id, String name, String email, String phone, String ville) async {
+  Future<User> updateUser(String id, String name, String phone, String ville,
+      String adresse) async {
     Map user = {
       'fullname': name,
-      'email': email,
       'phone': phone,
-      'ville': ville
+      'ville': ville,
+      'adresse': adresse
     };
-    final String url = "https://bestpkace-api.herokuapp.com/users";
+
     final response = await http.put(
       Uri.parse("$url/update/$id"),
       headers: <String, String>{
@@ -86,12 +76,11 @@ class UserController extends GetxController {
       body: jsonEncode(user),
     );
     Map<String, dynamic> body = jsonDecode(response.body);
-    print(body);
-
     if (body['status'] == 'success') {
-      userController = body['payload']['user'];
+      print(User.fromJson(body['payload']));
+      userController = User.fromJson(body['payload']).obs;
       print(userController);
-      Get.toNamed('/profil');
+      Get.toNamed('/profilUser');
     } else {
       throw Exception('Failed to register user.');
     }

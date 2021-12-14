@@ -157,20 +157,6 @@ class _ProfilePageState extends State<Body> {
         height: 8,
       );
 
-  Widget buildName(User user) => Column(
-        children: [
-          Text(
-            user.fullname,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            user.email,
-            style: TextStyle(color: Colors.grey),
-          )
-        ],
-      );
-
   Widget buildRating() => RatingBar.builder(
         initialRating: 2.5,
         minRating: 1,

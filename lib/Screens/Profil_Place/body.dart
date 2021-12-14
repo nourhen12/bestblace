@@ -99,7 +99,7 @@ class _ProfilePageState extends State<Body> {
   }
 
   Widget buildName(User user) => Column(
-        children: [
+      /*  children: [
           Text(
             user.fullname,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
@@ -109,7 +109,7 @@ class _ProfilePageState extends State<Body> {
             user.email,
             style: TextStyle(color: Colors.grey),
           )
-        ],
+        ],*/
       );
 
   Widget buildRating() => RatingBar.builder(

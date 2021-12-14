@@ -16,24 +16,25 @@ class _ProfilePageState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     UserController _controller = Get.put(UserController());
-    User user = _controller.userController;
-    String avaterapi = _controller.userController.avatar;
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
-        PhotoProfile(
-          imagePath:
-              "https://bestpkace-api.herokuapp.com/uploadsavatar/$avaterapi",
-          onClicked: () async {
-            Get.toNamed('/editprofil');
-          },
+        Obx(
+          () => PhotoProfile(
+            imagePath:
+                "https://bestpkace-api.herokuapp.com/uploadsavatar1/${_controller.userController.value.avatar}",
+            onClicked: () async {
+              Get.toNamed('/editprofil');
+            },
+          ),
         ),
         const SizedBox(height: 24),
-        buildName(_controller.userController),
+        Obx(
+          () => buildName(_controller.userController.value),
+        ),
         const SizedBox(height: 24),
         Center(child: buildRating()),
         const SizedBox(height: 24),
@@ -109,6 +110,18 @@ class _ProfilePageState extends State<Body> {
           const SizedBox(height: 4),
           Text(
             user.email,
+            style: TextStyle(color: Colors.grey),
+          ),
+          Text(
+            user.phone,
+            style: TextStyle(color: Colors.grey),
+          ),
+          Text(
+            user.ville,
+            style: TextStyle(color: Colors.grey),
+          ),
+          Text(
+            user.adresse,
             style: TextStyle(color: Colors.grey),
           )
         ],

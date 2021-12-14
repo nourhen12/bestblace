@@ -39,6 +39,7 @@ class Body extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               RoundedInputField(
                 hintText: "Your Email",
+                icon: Icons.email,
                 onChanged: (value) {
                   mail = value;
                 },
@@ -70,6 +71,7 @@ class Body extends StatelessWidget {
                 press: () async {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
+                    fromdata.save();
                     Data data = await _controller.login(mail, psw);
                     if (data.status == 'failed') {
                       AwesomeDialog(
@@ -84,10 +86,12 @@ class Body extends StatelessWidget {
                           btnOkColor: Colors.red)
                         ..show();
                     } else {
-                      final user = data.payload['user'];
-                      _controller.userController = User.fromJson(user);
-                      print(data.payload['user']);
+                      Map<String, dynamic> user = data.payload['user'];
+                      _controller.userController = User.fromJson(user).obs;
+                      _controller.idController = user['_id'];
                       print(_controller.userController);
+                      //_controller.change(_controller.userController);
+                      print(_controller.idController);
                       Get.toNamed('/profilUser');
                     }
                   } else {

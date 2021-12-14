@@ -1,4 +1,5 @@
 import 'package:flutterbestplace/models/post.dart';
+import 'package:get/get.dart';
 
 class User {
   String id;

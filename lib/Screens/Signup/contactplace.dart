@@ -119,6 +119,7 @@ class Body extends StatelessWidget {
                 press: () async {
                   var fromdata = _formKey.currentState;
                   if (fromdata.validate()) {
+                    fromdata.save();
                     Data data = await _controller.addPlace(
                         _controller.idController, phone, ville, adresse);
                     if (data.status == 'success') {
