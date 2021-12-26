@@ -11,6 +11,8 @@ class User {
   String adresse;
   String role;
   String avatar;
+  List followers;
+  List following;
   List<dynamic> posts;
   User(
       {this.id,
@@ -22,6 +24,8 @@ class User {
       this.adresse,
       this.role,
       this.avatar,
+      this.followers,
+      this.following,
       this.posts});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -34,6 +38,8 @@ class User {
       adresse: json['adresse'],
       role: json[' role'],
       avatar: json['avatar'],
+      followers: json['followers'],
+      following: json['following'],
       posts: json['posts'],
     );
   }
@@ -47,6 +53,8 @@ class User {
         'adresse': adresse,
         'role': role,
         'avatar': avatar,
+        'followers': followers,
+        'following': following,
         'posts': posts,
       };
 }

@@ -35,21 +35,29 @@ class _ProfilePageState extends State<Body> {
         Obx(
           () => buildName(_controller.userController.value),
         ),
-        const SizedBox(height: 24),
-        Center(child: buildRating()),
-        const SizedBox(height: 24),
-        Center(
+        //const SizedBox(height: 24),
+        //Center(child: buildRating()),
+        //const SizedBox(height: 24),
+        /* Center(
             child: ButtonWidget(
           text: 'Upgrade To Profile',
           onClicked: () {
             Get.toNamed('/image');
           },
-        )),
+        )),*/
         const SizedBox(height: 24),
-        NumbersWidget(),
+        Obx(
+          () => NumbersWidget(
+            Following: _controller.userController.value.following,
+            Followers: _controller.userController.value.followers,
+            idCurret: _controller.idController,
+            iduser: "61b6821a8a3ffd0023dc6323",
+          ),
+        ),
         SizedBox(
           height: 30,
         ),
+
         Container(
           height: height * 0.5,
           width: width,
@@ -112,7 +120,7 @@ class _ProfilePageState extends State<Body> {
             user.email,
             style: TextStyle(color: Colors.grey),
           ),
-          Text(
+          /* Text(
             user.phone,
             style: TextStyle(color: Colors.grey),
           ),
@@ -123,7 +131,7 @@ class _ProfilePageState extends State<Body> {
           Text(
             user.adresse,
             style: TextStyle(color: Colors.grey),
-          )
+          )*/
         ],
       );
 

@@ -92,7 +92,7 @@ class Body extends StatelessWidget {
                       print(_controller.userController);
                       //_controller.change(_controller.userController);
                       print(_controller.idController);
-                      Get.toNamed('/profilUser');
+                      Get.toNamed('/profilPlace');
                     }
                   } else {
                     print("notvalid");

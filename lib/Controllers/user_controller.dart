@@ -9,7 +9,12 @@ class UserController extends GetxController {
   final String url = "https://bestpkace-api.herokuapp.com/users";
   Rx<User> userController;
   String idController;
-
+  var imageList = [
+    'images/roys1.jpg',
+    'images/roys2.jpg',
+    'images/roys3.jpg',
+    'images/roys4.jpg',
+  ];
   //register :
   Future<Data> signup(name, email, password, role) async {
     final response = await http.post(
