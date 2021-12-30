@@ -99,7 +99,7 @@ class getAllMarkersState extends State<AllMarkers> {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () async {
-              controllerMarker.UserById('61ad2d0ca7f7450023e9e2b0');
+              controllerMarker.MarkerById('61ad2d0ca7f7450023e9e2b0');
             },
             style: ElevatedButton.styleFrom(
                 primary: kPrimaryColor,

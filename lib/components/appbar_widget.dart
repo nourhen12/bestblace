@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterbestplace/constants.dart';
 
 AppBar buildAppBar(BuildContext context) {
   final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -7,7 +8,7 @@ AppBar buildAppBar(BuildContext context) {
 
   return AppBar(
     leading: BackButton(),
-    backgroundColor: Colors.transparent,
+    backgroundColor: kPrimaryColor,
     elevation: 0,
     actions: [
       IconButton(

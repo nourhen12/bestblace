@@ -11,6 +11,7 @@ import 'package:flutterbestplace/Screens/EditProfil/edit_profil.dart';
 import 'package:flutterbestplace/Screens/Profil_Place/profil_place.dart';
 import 'package:flutterbestplace/Screens/google_map/add_Marker.dart';
 import 'package:flutterbestplace/Screens/google_map/all_Markers.dart';
+import 'package:flutterbestplace/Screens/Profil_Place/location.dart';
 import 'package:get/get.dart';
 
 void main() => runApp(MyApp());
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/editprofil', page: () => EditProfil()),
         GetPage(name: '/profilPlace', page: () => ProfilPlace()),
         GetPage(name: '/getmaps', page: () => AllMarkers()),
+        GetPage(name: '/location', page: () => PlaceMap()),
       ],
       /* routes: {
         'signup': (context) => SignUpScreen(),

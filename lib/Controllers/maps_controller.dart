@@ -24,12 +24,12 @@ class MarkerController {
     return Data.fromJson(body);
   }
 
-  Future<Marker> UserById(String id) async {
+  Future<Marker> MarkerById(String id) async {
     final response = await http.get(Uri.parse('$url/$id'));
     Map<String, dynamic> body = jsonDecode(response.body);
 
     if (body['status'] == 'success') {
-      print(body['payload']);
+      print(body);
     } else {
       throw Exception('Failed to load a user');
     }

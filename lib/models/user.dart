@@ -14,6 +14,7 @@ class User {
   List followers;
   List following;
   List<dynamic> posts;
+  dynamic marker;
   User(
       {this.id,
       this.fullname,
@@ -26,7 +27,8 @@ class User {
       this.avatar,
       this.followers,
       this.following,
-      this.posts});
+      this.posts,
+      this.marker});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['_id'],
@@ -41,6 +43,7 @@ class User {
       followers: json['followers'],
       following: json['following'],
       posts: json['posts'],
+      marker: json[' marker'],
     );
   }
   Map<String, dynamic> toJson() => {
@@ -56,5 +59,6 @@ class User {
         'followers': followers,
         'following': following,
         'posts': posts,
+        ' marker': marker,
       };
 }
