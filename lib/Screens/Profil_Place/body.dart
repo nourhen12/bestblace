@@ -4,10 +4,10 @@ import 'package:flutterbestplace/components/numbers_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
-import 'package:flutterbestplace/Screens/Profil_Place/location.dart';
 import 'package:flutterbestplace/models/user.dart';
 import 'package:flutterbestplace/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutterbestplace/Controllers/maps_controller.dart';
 import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,21 +19,24 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _isOpen = false;
   bool isLoading = false;
   PanelController _panelController = PanelController();
-
+  MarkerController controllerMarker = MarkerController();
   UserController _controller = Get.put(UserController());
   String postOrientation = "grid";
   Set<Marker> marker = {};
   CameraPosition _kGooglePlex;
 
   Future<Position> getLateAndLate() async {
+    controllerMarker.MarkerById(_controller.userController.value.marker[0]);
+    var lat = controllerMarker.MController.latitude;
+    print(lat);
+    var long = controllerMarker.MController.longitude;
+    print(long);
     _kGooglePlex = CameraPosition(
-      target: LatLng(35.5049812224640, 11.043470115161800),
+      target: LatLng(lat, long),
       zoom: 15.4746,
     );
     marker.add(Marker(
-        markerId: MarkerId("1"),
-        draggable: true,
-        position: LatLng(35.5049812224640, 11.043470115161800)));
+        markerId: MarkerId("1"), draggable: true, position: LatLng(lat, long)));
     setState(() {});
   }
 

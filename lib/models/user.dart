@@ -14,7 +14,7 @@ class User {
   List followers;
   List following;
   List<dynamic> posts;
-  dynamic marker;
+  List<dynamic> marker;
   User(
       {this.id,
       this.fullname,
@@ -43,7 +43,7 @@ class User {
       followers: json['followers'],
       following: json['following'],
       posts: json['posts'],
-      marker: json[' marker'],
+      marker: json['marker'],
     );
   }
   Map<String, dynamic> toJson() => {
@@ -59,6 +59,6 @@ class User {
         'followers': followers,
         'following': following,
         'posts': posts,
-        ' marker': marker,
+        'marker': marker,
       };
 }

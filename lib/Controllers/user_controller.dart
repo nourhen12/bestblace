@@ -46,7 +46,6 @@ class UserController extends GetxController {
       }),
     );
     Map<String, dynamic> res = jsonDecode(response.body);
-
     return Data.fromJson(res);
   }
 

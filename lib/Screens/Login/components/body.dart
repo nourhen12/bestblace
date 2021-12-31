@@ -88,10 +88,6 @@ class Body extends StatelessWidget {
                     } else {
                       Map<String, dynamic> user = data.payload['user'];
                       _controller.userController = User.fromJson(user).obs;
-                      _controller.idController = user['_id'];
-                      print(_controller.userController);
-                      //_controller.change(_controller.userController);
-                      print(_controller.idController);
                       Get.toNamed('/profilPlace');
                     }
                   } else {
