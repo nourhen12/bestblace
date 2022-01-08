@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'dart:io';
+import 'package:get/get.dart';
 import 'package:flutterbestplace/models/marker.dart';
 import 'package:flutterbestplace/models/Data.dart';
 import 'package:http/http.dart' as http;
 
 class MarkerController {
   final String url = "https://bestpkace-api.herokuapp.com/markers";
-  var MController = Marker();
+  Marker MController = Marker();
   Future<Data> addMarker(idUser, lat, long) async {
     final response = await http.post(
       Uri.parse(url),
@@ -29,8 +29,7 @@ class MarkerController {
     Map<String, dynamic> body = jsonDecode(response.body);
 
     if (body['status'] == 'success') {
-      print(body);
-      MController = Marker.fromJson(body['payload']);
+     return Data.fromJson(body);
     } else {
       throw Exception('Failed to load a user');
     }

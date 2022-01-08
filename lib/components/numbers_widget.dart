@@ -3,9 +3,9 @@ import 'package:flutterbestplace/Controllers/numbers_controller.dart';
 import 'package:get/get.dart';
 
 class NumbersWidget extends StatelessWidget {
-  final List Following;
-  final List Followers;
-  final List Posts;
+  final Following;
+  final Followers;
+  final Posts;
   final String idCurret;
   final String iduser;
   const NumbersWidget({
@@ -25,11 +25,11 @@ class NumbersWidget extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildButton(context, '${Posts.length}', 'Posts'),
+          buildButton(context, '${Posts}', 'Posts'),
           buildDivider(),
-          buildButton(context, '${Following.length}', 'Following'),
+          buildButton(context, '${Following}', 'Following'),
           buildDivider(),
-          buildButton(context, '${Followers.length}', 'Followers'),
+          buildButton(context, '${Followers}', 'Followers'),
         ],
         // )
       );

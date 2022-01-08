@@ -6,8 +6,12 @@ import 'package:get/get.dart';
 import 'package:flutterbestplace/Controllers/user_controller.dart';
 import 'package:flutterbestplace/models/user.dart';
 import 'package:flutterbestplace/constants.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutterbestplace/Controllers/maps_controller.dart';
+import 'package:flutterbestplace/Controllers/rate_controller.dart';
+import 'package:flutterbestplace/models/Data.dart';
+//google maps :
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+//geolocator :
 import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,28 +23,38 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _isOpen = false;
   bool isLoading = false;
   PanelController _panelController = PanelController();
-  MarkerController controllerMarker = MarkerController();
   UserController _controller = Get.put(UserController());
-  String postOrientation = "grid";
-  Set<Marker> marker = {};
+  RteController controllerRate = Get.put(RteController());
+  MarkerController controllerMarker = MarkerController();
   CameraPosition _kGooglePlex;
+  final _completer = Completer();
+  Position cp;
+  Set<Marker> markers = {};
+  String postOrientation = "grid";
+  double rate;
+  //List<Map<String> _rating = [1,2,3.5,2,2.5,4,4.5,2.5,2.5];//24.5
 
   Future<Position> getLateAndLate() async {
-    controllerMarker.MarkerById(_controller.userController.value.marker[0]);
-    var lat = controllerMarker.MController.latitude;
-    print(lat);
-    var long = controllerMarker.MController.longitude;
-    print(long);
+    Data data = await controllerMarker.MarkerById(
+        _controller.userController.value.marker[0]);
+    print("*******************************");
+    var latitude = data.payload['latitude'];
+    var longitude = data.payload['longitude'];
+    print(latitude);
+    print(longitude);
     _kGooglePlex = CameraPosition(
-      target: LatLng(lat, long),
-      zoom: 15.4746,
+      target: LatLng(latitude, longitude),
+      zoom: 14.4746,
     );
-    marker.add(Marker(
-        markerId: MarkerId("1"), draggable: true, position: LatLng(lat, long)));
+    markers.add(
+        Marker(markerId: MarkerId("1"), position: LatLng(latitude, longitude)));
     setState(() {});
   }
 
+  @override
   void initState() {
+    controllerRate.getRate();
+    controllerRate.CalculRating();
     getLateAndLate();
     super.initState();
   }
@@ -54,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Obx(
             () => FractionallySizedBox(
               alignment: Alignment.topCenter,
-              heightFactor: 0.4,
+              heightFactor: 0.7,
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -135,22 +149,88 @@ class _ProfilePageState extends State<ProfilePage> {
           style: TextStyle(color: Colors.grey),
         ),
       ]);
-  Widget buildRating() => RatingBar.builder(
-        initialRating: 2.5,
-        minRating: 1,
-        direction: Axis.horizontal,
-        allowHalfRating: true,
-        itemCount: 5,
-        itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-        itemBuilder: (context, _) => Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-        onRatingUpdate: (rating) {
-          print(rating);
-        },
-      );
+  Widget buildRating(double Rating) {
+    return RatingBar.builder(
+      initialRating: Rating,
+      minRating: 1,
+      direction: Axis.horizontal,
+      allowHalfRating: true,
+      glow: true,
+      itemCount: 5,
+      itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+      itemBuilder: (context, _) => Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+      onRatingUpdate: (rating) {
+        setState(() {
+          rate = rating;
+        });
+        /*setState(() {
+         _rating.add(rating);
+        print("_rating : $_rating");
+        });*/
+      },
+      updateOnDrag: false,
+    );
+  }
 
+  _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Rate This Places'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Please leave a star rating.'),
+                buildRating(0.0),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('rating'),
+              onPressed: () {
+                controllerRate.addRate(rate, _controller.idController);
+                // print("liste rates  cout : ${controllerRate.Rates.value.length}");
+                setState(() {
+                  controllerRate.CalculRating();
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+/*
+(new) RatingBar RatingBar.builder({
+  Widget Function(BuildContext, int) itemBuilder,
+  void Function(double) onRatingUpdate,
+  Color glowColor,
+  double maxRating,
+  TextDirection textDirection,
+  Color unratedColor,
+  bool allowHalfRating = false,
+  Axis direction = Axis.horizontal,
+  bool glow = true,
+  double glowRadius = 2,
+  bool ignoreGestures = false,
+  double initialRating = 0.0,
+  int itemCount = 5,
+  EdgeInsetsGeometry itemPadding = EdgeInsets.zero,
+  double itemSize = 40.0,
+  double minRating = 0,
+  bool tapOnlyMode = false,
+  bool updateOnDrag = false,
+  WrapAlignment wrapAlignment = WrapAlignment.start,
+})
+*/
   /// Panel Body
   SingleChildScrollView _panelBody(ScrollController controller) {
     double hPadding = 40;
@@ -171,7 +251,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   () => _titleSection(_controller.userController.value),
                 ),
 
-                Center(child: buildRating()),
+                MaterialButton(
+                    onPressed: () {
+                      print("okkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+                      _showMyDialog();
+                    },
+                    child: Center(
+                        child: buildRating(controllerRate.Rating.value))),
                 Obx(
                   () => NumbersWidget(
                     Following: _controller.userController.value.following,
@@ -242,53 +328,24 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
     } else if (postOrientation == "map") {
-      return Container(
-        child: GoogleMap(
-          markers: marker,
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (controller) {},
-        ),
-        height: 500,
-      );
-    }
-  }
-
-  //map
-  Widget buildLocation() {
-    return new Scaffold(
-      body: Column(
+      return Column(
         children: [
           _kGooglePlex == null
               ? CircularProgressIndicator()
               : Container(
                   child: GoogleMap(
-                    markers: marker,
+                    markers: markers,
                     mapType: MapType.normal,
                     initialCameraPosition: _kGooglePlex,
-                    onMapCreated: (controller) {},
+                    onMapCreated: (controller) {
+                      _completer.complete(controller);
+                    },
                   ),
                   height: 500,
                 ),
-          ElevatedButton(
-            child: Text(
-              "button",
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              // controllerMarker.PlaceMap(lat, long);
-            },
-            style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w100)),
-          ),
         ],
-      ),
-    );
+      );
+    }
   }
 
 //IconTap
@@ -430,4 +487,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       );
+}
+
+class Completer {
+  void complete(GoogleMapController controller) {}
 }
