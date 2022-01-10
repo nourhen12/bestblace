@@ -38,7 +38,7 @@ class User {
       phone: json['phone'],
       ville: json['ville'],
       adresse: json['adresse'],
-      role: json[' role'],
+      role: json['role'],
       avatar: json['avatar'],
       followers: json['followers'],
       following: json['following'],

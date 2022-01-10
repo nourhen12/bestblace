@@ -165,6 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
       onRatingUpdate: (rating) {
         setState(() {
           rate = rating;
+          print(rate);
         });
         /*setState(() {
          _rating.add(rating);
@@ -186,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListBody(
               children: <Widget>[
                 Text('Please leave a star rating.'),
-                buildRating(0.0),
+                buildRating(1.0),
               ],
             ),
           ),
@@ -194,6 +195,9 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               child: const Text('rating'),
               onPressed: () {
+                print("///////////////////////////");
+                print(rate);
+
                 controllerRate.addRate(rate, _controller.idController);
                 // print("liste rates  cout : ${controllerRate.Rates.value.length}");
                 setState(() {
@@ -258,7 +262,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                     child: Center(
                         child: buildRating(controllerRate.Rating.value))),
-                Obx(
+                /* Obx(
                   () => NumbersWidget(
                     Following: _controller.userController.value.following,
                     Followers: _controller.userController.value.followers,
@@ -266,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     idCurret: _controller.idController,
                     iduser: "61b6821a8a3ffd0023dc6323",
                   ),
-                ),
+                ),*/
                 // _actionSection(hPadding: hPadding),
               ],
             ),

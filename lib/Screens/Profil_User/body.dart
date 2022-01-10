@@ -19,7 +19,7 @@ class _ProfilePageState extends State<Body> {
   PanelController _panelController = PanelController();
   UserController _controller = Get.put(UserController());
   String postOrientation = "grid";
-  @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
